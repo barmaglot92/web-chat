@@ -22,7 +22,7 @@ export class ChatService {
   };
 
   public getMessageHistory = (chatId: number): Promise<IMessage[]> => {
-    return fetch(`${this.apiConfig?.apiUrl}/chat/${chatId}/get_history/`, {
+    return fetch(`${this.apiConfig!.apiUrl}/chat/${chatId}/get_history/`, {
       headers: { "X-JWT": `Bearer ${this.apiConfig?.token}` },
     }).then((res) =>
       res
@@ -69,7 +69,7 @@ export class ChatService {
   };
 
   private reconnect = (err: CloseEvent) => {
-    console.log('reconnect', err);
+    console.log("reconnect", err);
     // if (err) unexpectedly - reconnect
     // setTimeout(this.connect, 300)
   };

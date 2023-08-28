@@ -24,10 +24,16 @@ module.exports = {
     return mergeConfig(config, {
       server: {
         proxy: {
-          "/api": {
+          "/common-api": {
+            target: "https://abyrvalg.sexologvasilenko.com",
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/common-api/, ''),
+          },
+
+          "/chat-api": {
             target: "http://abyrvalg.sexologvasilenko.com:8082",
             changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, ''),
+            rewrite: (path) => path.replace(/^\/chat-api/, ''),
           },
         },
       },

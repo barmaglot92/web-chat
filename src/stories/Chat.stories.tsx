@@ -14,7 +14,7 @@ const meta: Meta<typeof Chat> = {
 
       useEffect(() => {
         const loginFn = async () => {
-          const res = await fetch("/api/user/login/", {
+          const res = await fetch("/common-api/api/user/login/", {
             method: "POST",
             body: JSON.stringify({
               login: "tomelkor@gmail.com",
@@ -59,9 +59,9 @@ type Story = StoryObj<typeof Chat>;
 export const Default: Story = {
   args: {
     apiConfig: {
-      wsUrl: "ws://abyrvalg.sexologvasilenko.com:8082/chat/22/ws/",
-      apiUrl: "/api",
-      chatId: 22,
+      wsUrl: "ws://abyrvalg.sexologvasilenko.com:8082/chat/129/ws/",
+      apiUrl: "/chat-api",
+      chatId: 129,
     },
   } as ChatProps,
 };
