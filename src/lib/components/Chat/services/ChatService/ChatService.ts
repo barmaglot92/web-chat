@@ -1,7 +1,6 @@
 import { ChatApiConfig } from "../../types";
 import { IMessage, ISendMessage } from "./types";
 import { v4 } from "uuid";
-
 export class ChatService {
   private ws?: WebSocket;
 
@@ -25,11 +24,13 @@ export class ChatService {
     return fetch(`${this.apiConfig!.apiUrl}/chat/${chatId}/get_history/`, {
       headers: { "X-JWT": `Bearer ${this.apiConfig?.token}` },
     }).then((res) =>
-      res
-        .json()
-        .then((res: { messages: IMessage[] }) =>
-          res.messages.map(this.transformMessage),
-        ),
+      res.json().then((res: { messages: IMessage[] }) => {
+        if (!res.messages) {
+          return Promise.reject([]);
+        }
+
+        return res.messages.map(this.transformMessage);
+      }),
     );
   };
 

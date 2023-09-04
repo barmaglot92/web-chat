@@ -1,10 +1,4 @@
-.Chat {
-  display: flex;
-  flex-direction: column;
-  gap: var(--chat-padding-small);
-  width: 40%;
-  margin: 0 auto;
-
+:root {
   --chat-font: "Roboto", sans-serif;
   --chat-bg-color: rgb(240, 240, 240);
 
@@ -19,10 +13,18 @@
   --chat-msg-date-color: #cecece;
 
   --chat-msg-text-color: #333;
-  --chat-msg-author-color: #eecaff;
+  --chat-msg-author-color: #eecaff; // not used
 
   --chat-padding-micro: 8px;
   --chat-padding-small: 12px;
   --chat-padding-medium: 24px;
   --chat-padding-big: 35px;
+}
+
+.Chat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--chat-padding-small);
+  width: 40%;
+  margin: 0 auto;
 }

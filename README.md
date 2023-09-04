@@ -1,4 +1,3 @@
 # Chat UI
 
-##
-  npm run storybook
+Run `npm run dev` to start dev environment.

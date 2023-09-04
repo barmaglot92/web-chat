@@ -6,9 +6,17 @@ import { ChatApiConfig } from "../types";
 
 interface IChatHookParams {
   apiConfig: ChatApiConfig;
+  onTokenExpire?: () => void;
 }
 
-const useChat = ({ apiConfig }: IChatHookParams) => {
+const DEFAULT_EXPIRE_TOKEN_HANDLER = () => {
+  console.error("Token expired");
+};
+
+const useChat = ({
+  apiConfig,
+  onTokenExpire = DEFAULT_EXPIRE_TOKEN_HANDLER,
+}: IChatHookParams) => {
   const [messages, setMessages] = useState([] as IMessage[]);
 
   const handleMessage = useCallback((message: IMessage) => {
@@ -22,18 +30,20 @@ const useChat = ({ apiConfig }: IChatHookParams) => {
     }),
   );
 
-  const sendMessage = (msg: ISendMessage) => {
-    chatService.sendMessage(msg);
+  const sendMessage = (msg: ISendMessage, delay: number = 0) => {
+    return new Promise((resolve) => {
+      chatService.sendMessage(msg);
+      setTimeout(resolve, delay);
+    });
   };
 
   useEffect(() => {
     const f = async () => {
       try {
         const messages = await chatService.getMessageHistory(apiConfig.chatId);
-        console.log("getMessageHistory", messages);
         setMessages(messages);
       } catch (err) {
-        console.error("getMessageHistory", err);
+        onTokenExpire();
       }
 
       chatService.connect();

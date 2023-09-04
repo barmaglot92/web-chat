@@ -1,0 +1,88 @@
+.ChatInput {
+  display: grid;
+  width: 100%;
+  grid-template-areas:
+    "input submit"
+    "counter empty";
+  gap: var(--chat-padding-micro) var(--chat-padding-medium);
+  grid-template-columns: 4fr 1fr;
+  font-family: var(--chat-font);
+
+  & > * {
+    box-sizing: border-box;
+    font-family: var(--chat-font);
+  }
+
+  &__textarea {
+    border-radius: 6px;
+    grid-area: input;
+    overflow: hidden;
+    width: 100%;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    padding: var(--chat-padding-small) var(--chat-padding-medium);
+    background: var(--chat-input-bg-color);
+    color: var(--chat-input-color);
+  }
+
+  &__counter {
+    grid-area: counter;
+    white-space: nowrap;
+    text-align: right;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    color: var(--chat-input-counter);
+    font-size: 12px;
+
+    &--visible {
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
+    }
+  }
+
+  &__submit {
+    grid-area: submit;
+    display: block;
+    border: none;
+    outline: none;
+    background: var(--chat-submit-bg-color);
+    color: var(--chat-submit-color);
+    font-size: 15px;
+    border-radius: 4px;
+    box-shadow: 0px 1px 4px rgb(107 107 107);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0 15px;
+
+    &[disabled]::after {
+      cursor: wait;
+      content: "";
+      width: 150%;
+      height: 150%;
+      position: absolute;
+      left: 0%;
+      top: 0%;
+      background: repeating-linear-gradient(
+        60deg,
+        transparent 0rem,
+        transparent 0.75rem,
+        rgba(220, 221, 225, 0.1) 0.75rem,
+        rgba(220, 221, 225, 0.1) 0.75rem,
+        rgba(220, 221, 225, 0.1) 1.4rem,
+        rgba(220, 221, 225, 0.1) 0.5rem
+      );
+      animation: ChatSubmitInProgress 1s infinite linear;
+    }
+  }
+}
+
+@keyframes ChatSubmitInProgress {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-1.75rem);
+  }
+}
